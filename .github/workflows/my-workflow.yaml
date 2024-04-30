@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [ "main" ]
 jobs:
-  my-job:
+  my-jobb:
     name: my-job
     runs-on: self-hosted
     steps:
@@ -15,3 +15,4 @@ jobs:
 
       # run any `bun` or `bunx` command
       - run: bun install
+      - run: bun test
