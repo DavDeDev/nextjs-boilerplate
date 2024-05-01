@@ -35,7 +35,7 @@ COPY --from=prerelease --chown=nextjs:nodejs /usr/src/app/public ./public
 COPY --from=prerelease --chown=nextjs:nodejs /usr/src/app/.next/static ./.next/static/
 
 EXPOSE 3000/tcp
-CMD bun server.js
+ENTRYPOINT [ "bun","server.js" ]
 # # run the app
 # # USER bun
 # ENTRYPOINT [ "bun", "run", "index.ts" ]
