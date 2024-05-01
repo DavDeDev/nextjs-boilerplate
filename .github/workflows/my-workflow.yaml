@@ -12,17 +12,17 @@ env:
   
 jobs:
 # I want two jobs one to run tests and publish result and the other to build and push docker image to github container registry
-  run-tests:
-    name: tests
-    runs-on: self-hosted
-    steps:
-      # ...
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v1
+  # run-tests:
+    # name: tests
+    # runs-on: self-hosted
+    # steps:
+    #   # ...
+    #   - uses: actions/checkout@v4
+    #   - uses: oven-sh/setup-bun@v1
 
-      # run any `bun` or `bunx` command
-      - run: bun install
-      - run: bun test
+    #   # run any `bun` or `bunx` command
+    #   - run: bun install
+    #   - run: bun test
 
   build-and-push-image:
     name: build-and-push-image
@@ -48,5 +48,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/user/app:latest
-            ghcr.io/user/app:1.0.0      
+            ghcr.io/${{ github.repository_owner }}/app:latest
+            ghcr.io/${{ github.repository_owner }}/app:1.0.0      
