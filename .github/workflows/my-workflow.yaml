@@ -11,23 +11,28 @@ env:
 
   
 jobs:
-
-  run-tests:
-    name: tests
+  build:
+    name: Build Application
     runs-on: self-hosted
     steps:
-      # ...
+      - uses: actions/checkout@v4
+      - run: bun install
+      - run: bun build
+
+  unit-tests:
+    name: Unit Testing
+    runs-on: self-hosted
+    steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v1
-
-      # run any `bun` or `bunx` command
       - run: bun install
       - run: bun test
 
   build-and-push-image:
-    name: build-and-push-image
+    name: Build and Push Docker Image
     runs-on: self-hosted
-    needs: ['run-tests']
+    needs: ['unit-tests']
+    # Modifies the default permissions granted to the GITHUB_TOKEN
     permissions:
       contents: read
       packages: write
@@ -49,6 +54,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      - name: Console log meta steps.meta.outputs.labels
+        run: echo "${{ steps.meta.outputs.labels }}"
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
