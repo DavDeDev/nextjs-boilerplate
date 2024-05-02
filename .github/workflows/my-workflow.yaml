@@ -20,6 +20,7 @@ jobs:
       - run: bun build
 
   unit-tests:
+    needs: ['build']
     name: Unit Testing
     runs-on: self-hosted
     steps:
