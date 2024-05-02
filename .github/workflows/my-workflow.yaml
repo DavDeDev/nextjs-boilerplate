@@ -18,10 +18,12 @@ jobs:
     steps:
       - uses: actions/cache@v4
         with:
-          path: ~/.bun/install/cache
-          key: ${{ runner.os }}-${{ matrix.bun }}-bun-${{ hashFiles('**/bun.lockb') }}
+          path: |
+            ~/.bun/install/cache
+            ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lockb') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
           restore-keys: |
-            ${{ runner.os }}-${{ matrix.bun }}-bun-
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lockb') }}-
       - uses: actions/checkout@v4
       - run: bun install
       - run: bun run build
