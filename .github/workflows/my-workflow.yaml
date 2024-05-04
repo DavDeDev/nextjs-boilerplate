@@ -14,7 +14,7 @@ env:
 jobs:
   build:
     name: Build Application
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/cache@v4
         with:
@@ -25,6 +25,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('bun.lockb') }}-
       - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v1
       - run: bun install
       - run: bun run build
 
