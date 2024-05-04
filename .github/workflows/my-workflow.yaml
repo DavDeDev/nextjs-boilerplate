@@ -14,7 +14,7 @@ env:
 jobs:
   build:
     name: Build Application
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/cache@v4
         with:
